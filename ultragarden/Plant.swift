@@ -32,7 +32,7 @@ let plants = [
         "Partial sunlight",
         "All soil types"
     ], chores: [
-        Chore(name: "Water", description: "Water once every 8 days for the entire year", active_months: all_months, intervalInDays: 8),
+        Chore(name: "Water", description: "Water once every 8 days for the entire year", active_months: all_months, intervalInDays: 1),
         Chore(name: "Fertilize", description: "Fertilize once per month during summer", active_months: [5, 6, 7, 8], intervalInDays: 30),
         Chore(name: "Cut", description: "Cut rose buds after they have bloomes", active_months: [], intervalInDays: 0)
     ]),

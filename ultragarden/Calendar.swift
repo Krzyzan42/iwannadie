@@ -80,15 +80,36 @@ class ChoreEntry :ObservableObject {
         self.next_due_date = next_due_date
         self.active_months = active_months
         self.intervalInDays = intervalInDays
+        if active_months == [] {
+            self.next_due_date = get_hight_date()
+        }
     }
     
     func mark_done() -> Void {
-        next_due_date = Foundation.Calendar.current.date(byAdding: .day, value: intervalInDays, to: next_due_date) ?? Date()
+        if active_months == [] {
+            return
+        }
+
+        let calendar = Foundation.Calendar.current
+        next_due_date = calendar.date(byAdding: .day, value: intervalInDays, to: next_due_date)!
+        while !active_months.contains(calendar.component(.month, from: next_due_date)) {
+            next_due_date = calendar.date(byAdding: .day, value: intervalInDays, to: next_due_date)!
+        }
+        
         objectWillChange.send()
     }
 
     func get_next_due_date() -> Date {
         return Date()
+    }
+
+    func get_hight_date() -> Date {
+        var components = DateComponents()
+        components.year = 3000
+        components.month = 12
+        components.day = 31
+
+        return Foundation.Calendar.current.date(from: components) ?? Date()
     }
 }
 

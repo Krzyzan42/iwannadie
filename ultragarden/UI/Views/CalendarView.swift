@@ -43,7 +43,7 @@ struct CalendarView: View {
                 ForEach(calendar.get_all_entries(), id: \.id) { plant_entry in 
                     ForEach(plant_entry.chores, id: \.id) { chore in 
                         if dates_equal(d1: chore.next_due_date, d2: selectedDate) {
-                            TodoItem(plant_entry: plant_entry, chore_entry: chore)
+                            TodoItem(plant_entry: plant_entry, chore_entry: chore, date: selectedDate)
                         }
                     }
                 
@@ -76,19 +76,22 @@ struct CalendarView: View {
 struct TodoItem :View {
     var plant_entry :PlantEntry
     @ObservedObject var chore_entry :ChoreEntry
+    var date :Date
     
     var body :some View {
         HStack {
             Text(chore_entry.name + " " + plant_entry.plant.plural)
                 .font(.title2)
             Spacer()
+            Text(" x" + "\(plant_entry.count)")
+                .foregroundColor(Color.gray)
             Button(action: {chore_entry.mark_done()}) {
                 ZStack {
                     Rectangle()
                         .frame(width: 30, height: 30)
                         .foregroundColor(Color.LightGray)
 
-                    if(!dates_equal(d1: chore_entry.next_due_date, d2: Date())) {
+                    if(!dates_equal(d1: chore_entry.next_due_date, d2: date)) {
                         Image(systemName: "checkmark")
                             .foregroundColor(Color.DarkGreen)
                     }
