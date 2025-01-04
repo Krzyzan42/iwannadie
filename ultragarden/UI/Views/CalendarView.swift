@@ -6,23 +6,28 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct CalendarView: View {
-    let circleSize = 40.0
+    let circleSize = 50.0
+    @State private var selectedDate :Date = Date()
+    @EnvironmentObject var calendar :Calendar
     
     var body :some View {
         VStack {
             VStack() {
-                Text("June")
+                Text(month_name())
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    ForEach(11...15, id: \.self) { number in
-                        ZStack {
-                            Circle()
-                                .frame(width: circleSize, height: circleSize)
-                                .foregroundColor(number == 11 ? Color.Green : Color.Gray)
-                            Text("\(number)")
-                        }.padding(.horizontal, 10)
+                    ForEach(self.get_next_dates(count: 5), id: \.self) { date in
+                        Button(action: { selectedDate = date }) {
+                           Text("\(Foundation.Calendar.current.component(.day, from: date))")
+                        }
+                        .frame(width: circleSize, height: circleSize)
+                        .background(dates_equal(d1: date, d2: selectedDate) ? Color.Green : Color.Gray)
+                        .foregroundColor(Color.black)
+                        .clipShape(Circle())
+                        Spacer()
                     }
                 }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -34,10 +39,15 @@ struct CalendarView: View {
                 Text("Plan for today")
                     .font(.title3)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                TodoItem(name: "Water tomatoes", done: false)
-                TodoItem(name: "Fertilize cucumbers", done: false)
-                TodoItem(name: "Cut roses", done: true)
+
+                ForEach(calendar.get_all_entries(), id: \.id) { plant_entry in 
+                    ForEach(plant_entry.chores, id: \.id) { chore in 
+                        if dates_equal(d1: chore.next_due_date, d2: selectedDate) {
+                            TodoItem(plant_entry: plant_entry, chore_entry: chore)
+                        }
+                    }
                 
+                }
             }
             .padding(20)
             Spacer()
@@ -45,24 +55,43 @@ struct CalendarView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.Green)
     }
+
+    func get_next_dates(count :Int) -> [Date] {
+        var dates :[Date] = []
+        for index in 0..<count {
+            dates.append( 
+                Foundation.Calendar.current.date(byAdding: .day, value: index, to: Date()) ?? Date()
+            )
+        }
+        return dates
+    }
+
+    func month_name() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        return formatter.string(from: Date())
+    }
 }
 
 struct TodoItem :View {
-    var name :String
-    var done :Bool
+    var plant_entry :PlantEntry
+    @ObservedObject var chore_entry :ChoreEntry
     
     var body :some View {
         HStack {
-            Text(name)
+            Text(chore_entry.name + " " + plant_entry.plant.plural)
                 .font(.title2)
             Spacer()
-            ZStack {
-                Rectangle()
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(Color.LightGray)
-                if(done) {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(Color.DarkGreen)
+            Button(action: {chore_entry.mark_done()}) {
+                ZStack {
+                    Rectangle()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(Color.LightGray)
+
+                    if(!dates_equal(d1: chore_entry.next_due_date, d2: Date())) {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(Color.DarkGreen)
+                    }
                 }
             }
         }
@@ -75,5 +104,6 @@ struct TodoItem :View {
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
         CalendarView()
+            .environmentObject(Calendar())
     }
 }

@@ -33,7 +33,7 @@ struct FlowerTile: View {
     var plant: Plant
     
     var body: some View {
-        NavigationLink(value: plant.id) {
+        NavigationLink(value: NavigationTarget.PlantDetail(id: plant.id)) {
             VStack{
                 Image(plant.imgName)
                     .resizable()
@@ -55,19 +55,29 @@ struct FlowerTile: View {
 }
 
 struct FavoriteButton: View {
-    @EnvironmentObject var favorites: Favorites
-    
+    @EnvironmentObject var calendar: Calendar
+
     var plant: Plant
     
     var body: some View {
-        Button(action: {
-            favorites.toggleFavorite(plant)
-        }) {
-            Image(systemName: favorites.isFavorite(plant) ? "heart.fill" : "heart")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(Color.DarkGreen)
-                .frame(maxWidth: 35, maxHeight: 35)
+        if (calendar.is_in_calendar(id: plant.id)) {
+            Button(action: {
+                calendar.remove_from_calendar(id: plant.id)
+            }) {
+                Image(systemName: "heart.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color.DarkGreen)
+                    .frame(maxWidth: 35, maxHeight: 35)
+            }
+        } else {
+            NavigationLink(value: NavigationTarget.AddPlant(id: plant.id)) {
+                Image(systemName: "heart")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color.DarkGreen)
+                    .frame(maxWidth: 35, maxHeight: 35)
+            }
         }
     }
 }

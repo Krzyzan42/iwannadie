@@ -36,7 +36,7 @@ struct RootView :View {
                 
                 CalendarView()
                     .tabItem { Image(systemName: "calendar") }
-                    .tag(2)
+                    .tag(3)
             }
         }
         .background(Color.Green)
@@ -54,5 +54,6 @@ struct Scaffold_Previews: PreviewProvider {
     static var previews: some View {
         RootView()
             .environmentObject(Favorites())
+            .environmentObject(Calendar())
     }
 }
