@@ -33,22 +33,24 @@ struct FlowerTile: View {
     var plant: Plant
     
     var body: some View {
-        VStack{
-            Image(plant.imgName)
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(Color.DarkGreen)
-            HStack{
-                Text(plant.name)
-                    .font(.title2)
-                Spacer()
-                FavoriteButton(plant: plant)
+        NavigationLink(value: plant.id) {
+            VStack{
+                Image(plant.imgName)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color.DarkGreen)
+                HStack{
+                    Text(plant.name)
+                        .font(.title2)
+                    Spacer()
+                    FavoriteButton(plant: plant)
+                }
+                .padding(10)
             }
             .padding(10)
+            .background(Color.LightGreen)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
         }
-        .padding(10)
-        .background(Color.LightGreen)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
 

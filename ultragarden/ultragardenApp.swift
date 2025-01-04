@@ -13,7 +13,7 @@ struct ultragardenApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Scaffold()
+            RootView()
                 .environmentObject(favorites)
         }
     }

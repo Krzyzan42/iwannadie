@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,17 +13,9 @@
 		92668D282D01B98100C765D4 /* ultragardenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92668D272D01B98100C765D4 /* ultragardenTests.swift */; };
 		92668D322D01B98100C765D4 /* ultragardenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92668D312D01B98100C765D4 /* ultragardenUITests.swift */; };
 		92668D342D01B98100C765D4 /* ultragardenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92668D332D01B98100C765D4 /* ultragardenUITestsLaunchTests.swift */; };
-		92740C962D01DFFA00D31B62 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92740C952D01DFFA00D31B62 /* HomeView.swift */; };
 		92740C982D01E03D00D31B62 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92740C972D01E03D00D31B62 /* Colors.swift */; };
-		92740C9A2D02311D00D31B62 /* PlantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92740C992D02311D00D31B62 /* PlantDetail.swift */; };
 		92740C9C2D0235DC00D31B62 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92740C9B2D0235DC00D31B62 /* Plant.swift */; };
-		9285CFC72D132F570077B219 /* PlantCare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285CFC62D132F570077B219 /* PlantCare.swift */; };
-		92957CE92D0A37DA002BEBF5 /* FlowerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92957CE82D0A37DA002BEBF5 /* FlowerList.swift */; };
-		92957CEB2D0A3DCC002BEBF5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92957CEA2D0A3DCC002BEBF5 /* FavoritesView.swift */; };
-		92957CED2D0A3F5A002BEBF5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92957CEC2D0A3F5A002BEBF5 /* SearchView.swift */; };
 		92957CEF2D0AFD8A002BEBF5 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92957CEE2D0AFD8A002BEBF5 /* Favorites.swift */; };
-		92957CF12D0B0A72002BEBF5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92957CF02D0B0A72002BEBF5 /* CalendarView.swift */; };
-		929B8BD52D0A0194005B3DE5 /* Scaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929B8BD42D0A0192005B3DE5 /* Scaffold.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,18 +45,14 @@
 		92668D2D2D01B98100C765D4 /* ultragardenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ultragardenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92668D312D01B98100C765D4 /* ultragardenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ultragardenUITests.swift; sourceTree = "<group>"; };
 		92668D332D01B98100C765D4 /* ultragardenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ultragardenUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		92740C952D01DFFA00D31B62 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		92740C972D01E03D00D31B62 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		92740C992D02311D00D31B62 /* PlantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetail.swift; sourceTree = "<group>"; };
 		92740C9B2D0235DC00D31B62 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
-		9285CFC62D132F570077B219 /* PlantCare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCare.swift; sourceTree = "<group>"; };
-		92957CE82D0A37DA002BEBF5 /* FlowerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerList.swift; sourceTree = "<group>"; };
-		92957CEA2D0A3DCC002BEBF5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
-		92957CEC2D0A3F5A002BEBF5 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		92957CEE2D0AFD8A002BEBF5 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
-		92957CF02D0B0A72002BEBF5 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		929B8BD42D0A0192005B3DE5 /* Scaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scaffold.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5751C1FC2D286D560041F21A /* UI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UI; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		92668D102D01B97700C765D4 /* Frameworks */ = {
@@ -114,20 +102,13 @@
 		92668D152D01B97700C765D4 /* ultragarden */ = {
 			isa = PBXGroup;
 			children = (
+				5751C1FC2D286D560041F21A /* UI */,
 				92668D162D01B97700C765D4 /* ultragardenApp.swift */,
 				92668D1A2D01B97F00C765D4 /* Assets.xcassets */,
 				92668D1C2D01B97F00C765D4 /* Preview Content */,
-				92740C952D01DFFA00D31B62 /* HomeView.swift */,
 				92740C972D01E03D00D31B62 /* Colors.swift */,
-				92740C992D02311D00D31B62 /* PlantDetail.swift */,
 				92740C9B2D0235DC00D31B62 /* Plant.swift */,
-				929B8BD42D0A0192005B3DE5 /* Scaffold.swift */,
-				92957CE82D0A37DA002BEBF5 /* FlowerList.swift */,
-				92957CEA2D0A3DCC002BEBF5 /* FavoritesView.swift */,
-				92957CEC2D0A3F5A002BEBF5 /* SearchView.swift */,
 				92957CEE2D0AFD8A002BEBF5 /* Favorites.swift */,
-				92957CF02D0B0A72002BEBF5 /* CalendarView.swift */,
-				9285CFC62D132F570077B219 /* PlantCare.swift */,
 			);
 			path = ultragarden;
 			sourceTree = "<group>";
@@ -171,6 +152,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5751C1FC2D286D560041F21A /* UI */,
 			);
 			name = ultragarden;
 			productName = ultragarden;
@@ -287,18 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92957CED2D0A3F5A002BEBF5 /* SearchView.swift in Sources */,
-				929B8BD52D0A0194005B3DE5 /* Scaffold.swift in Sources */,
 				92740C9C2D0235DC00D31B62 /* Plant.swift in Sources */,
 				92740C982D01E03D00D31B62 /* Colors.swift in Sources */,
 				92957CEF2D0AFD8A002BEBF5 /* Favorites.swift in Sources */,
 				92668D172D01B97700C765D4 /* ultragardenApp.swift in Sources */,
-				92957CF12D0B0A72002BEBF5 /* CalendarView.swift in Sources */,
-				92740C9A2D02311D00D31B62 /* PlantDetail.swift in Sources */,
-				92957CE92D0A37DA002BEBF5 /* FlowerList.swift in Sources */,
-				92740C962D01DFFA00D31B62 /* HomeView.swift in Sources */,
-				92957CEB2D0A3DCC002BEBF5 /* FavoritesView.swift in Sources */,
-				9285CFC72D132F570077B219 /* PlantCare.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +442,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,7 +471,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,7 +493,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -541,7 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

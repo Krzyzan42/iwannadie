@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct PlantCare: View {
+struct PlantDetailFront: View {
+    var plant :Plant
+    var on_flip :() -> Void = {}
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Plant guard")
-                .font(.largeTitle)
-            Text("Your green companion")
-                .foregroundColor(Color.DarkGreen)
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: VerticalAlignment.top) {
-                    Image(systemName: "star.fill")
+                    Image(plant.imgName)
                         .resizable(resizingMode: .stretch)
                         .frame(width: 120.0, height: 200.0)
                         .background(Color.DarkGreen)
@@ -29,7 +29,7 @@ struct PlantCare: View {
                                 .frame(width: 40.0, height: 40.0)
                                 .foregroundColor(Color.DarkGreen)
                         }
-                        Text("Rose")
+                        Text(plant.name)
                             .font(.largeTitle)
                             .padding(30)
                             .frame(maxWidth: .infinity)
@@ -38,42 +38,36 @@ struct PlantCare: View {
                     }
                 }
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("How to water?")
-                        .font(.title)
-                        .padding(.top, 10.0)
-                    Divider()
-                        .frame(height: 3)
-                        .overlay(Color.Green)
-                        .padding(0)
-                    Text("5l once a week")
-                        .padding(.bottom, 10)
-                    Button(action: {}) {
-                        Text("Add to calendar")
+                    ForEach(plant.chores, id: \.self.name) { chore in 
+                        Text(chore.name)
+                            .font(.title)
+                            .padding(.top, 10.0)
+                        Divider()
+                            .frame(height: 3)
+                            .overlay(Color.Green)
+                            .padding(0)
+                        Text(chore.description)
+                            .padding(.bottom, 10)
+                    }
+                    Spacer()
+
+                    Button(action: on_flip) {
+                        ZStack {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "arrow.right")
+                                    .padding(.horizontal, 20)
+                            }
+                            Text("Best conditions")
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
                     .background(Color.Green)
                     .foregroundColor(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
-                    
-                    Text("How to fertilize?")
-                        .font(.title)
-                        .padding(.top, 10.0)
-                    Divider()
-                        .frame(height: 3)
-                        .overlay(Color.Green)
-                        .padding(0)
-                    Text("once a month in the growing season")
-                        .padding(.bottom, 10)
-                    Button(action: {}) {
-                        Text("Remove from calendar")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.Gray)
-                    .foregroundColor(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
-                    Button(action: {}) {
+
+                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
                         ZStack {
                             HStack {
                                 Image(systemName: "arrow.left")
@@ -89,15 +83,12 @@ struct PlantCare: View {
                     .foregroundColor(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                 
-                    Spacer()
                 }
-                Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(20)
             .background(Color.LightGreen)
             .clipShape(RoundedRectangle(cornerRadius: 15));
-            Spacer()
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -108,6 +99,6 @@ struct PlantCare: View {
 
 struct PlantCare_Previews: PreviewProvider {
     static var previews: some View {
-        PlantCare();
+        PlantDetailFront(plant: get_plant(id: 0));
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Scaffold :View {
+struct RootView :View {
     @State private var selectedTab = 0;
     
     var body: some View {
@@ -52,7 +52,7 @@ struct Scaffold :View {
 
 struct Scaffold_Previews: PreviewProvider {
     static var previews: some View {
-        Scaffold()
+        RootView()
             .environmentObject(Favorites())
     }
 }
