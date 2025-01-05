@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @EnvironmentObject var favorites: Favorites
+    @EnvironmentObject var calendar: Calendar
     
     var body: some View {
         RootNavigation {
@@ -16,7 +16,8 @@ struct FavoritesView: View {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         Text("My plants")
-                            .font(.largeTitle)
+                            .font(.title)
+                            .padding(10)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(5)
@@ -38,7 +39,7 @@ struct FavoritesView: View {
     func getFavoritePlants(_ plants :[Plant]) -> [Plant] {
         var favorite_plants :[Plant] = []
         for plant in plants {
-            if(favorites.isFavorite(plant)) {
+            if(calendar.is_in_calendar(id: plant.id)) {
                 favorite_plants.append(plant)
             }
         }

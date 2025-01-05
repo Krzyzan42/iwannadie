@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct ultragardenApp: App {
-    @StateObject var favorites = Favorites()
+    @StateObject var calendar = Calendar()
     
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(favorites)
+                .environmentObject(calendar)
         }
     }
 }

@@ -17,12 +17,15 @@ struct FlowerList :View {
                 VStack {
                     ForEach(Array(stride(from: 0, to: plants.count, by: 2)), id: \.self) { i in
                         FlowerTile(plant: plants[i])
+                        .padding(4)
                     }
                 }
                 VStack {
                     ForEach(Array(stride(from: 1, to: plants.count, by: 2)), id: \.self) { i in
                         FlowerTile(plant: plants[i])
+                        .padding(4)
                     }
+                    HStack { Spacer() }
                 }
             }
         }
@@ -39,11 +42,14 @@ struct FlowerTile: View {
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(Color.DarkGreen)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
                 HStack{
                     Text(plant.name)
                         .font(.title2)
+                        .foregroundColor(Color.black)
                     Spacer()
                     FavoriteButton(plant: plant)
+                        .frame(maxWidth: 25, maxHeight: 25)
                 }
                 .padding(10)
             }
@@ -64,19 +70,17 @@ struct FavoriteButton: View {
             Button(action: {
                 calendar.remove_from_calendar(id: plant.id)
             }) {
-                Image(systemName: "heart.fill")
+                Image(systemName: "trash")
                     .resizable()
                     .scaledToFit()
-                    .foregroundColor(Color.DarkGreen)
-                    .frame(maxWidth: 35, maxHeight: 35)
+                    .foregroundColor(Color.red)
             }
         } else {
             NavigationLink(value: NavigationTarget.AddPlant(id: plant.id)) {
-                Image(systemName: "heart")
+                Image(systemName: "plus")
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(Color.DarkGreen)
-                    .frame(maxWidth: 35, maxHeight: 35)
             }
         }
     }

@@ -15,39 +15,22 @@ struct PlantDetailFront: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: VerticalAlignment.top) {
-                    Image(plant.imgName)
-                        .resizable(resizingMode: .stretch)
-                        .frame(width: 120.0, height: 200.0)
-                        .background(Color.DarkGreen)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "heart.fill")
-                                .resizable(resizingMode: .stretch)
-                                .frame(width: 40.0, height: 40.0)
-                                .foregroundColor(Color.DarkGreen)
-                        }
-                        Text(plant.name)
-                            .font(.largeTitle)
-                            .padding(30)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.Green)
-                            .clipShape(RoundedCorner(radius: 20, corners: [.topRight, .bottomRight]))
-                    }
-                }
+                PlantHeader(plant: plant)
                 VStack(alignment: .leading, spacing: 5) {
-                    ForEach(plant.chores, id: \.self.name) { chore in 
-                        Text(chore.name)
-                            .font(.title)
-                            .padding(.top, 10.0)
-                        Divider()
-                            .frame(height: 3)
-                            .overlay(Color.Green)
-                            .padding(0)
-                        Text(chore.description)
-                            .padding(.bottom, 10)
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 5) {
+                        ForEach(plant.chores, id: \.self.name) { chore in 
+                            Text(chore.name)
+                                .font(.title)
+                                .padding(.top, 10.0)
+                            Divider()
+                                .frame(height: 3)
+                                .overlay(Color.Green)
+                                .padding(0)
+                            Text(chore.description)
+                                .padding(.bottom, 10)
+                        }
+                        }
                     }
                     Spacer()
 
@@ -90,10 +73,6 @@ struct PlantDetailFront: View {
             .background(Color.LightGreen)
             .clipShape(RoundedRectangle(cornerRadius: 15));
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.Green)
-        
     }
 }
 

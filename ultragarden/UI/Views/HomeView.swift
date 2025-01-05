@@ -19,7 +19,8 @@ struct HomeView: View {
                         Text("Discover the most popular plants")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(5)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 15)
                     .background(Color.LightGreen)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     FlowerList(plants: plants)

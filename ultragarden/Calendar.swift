@@ -37,7 +37,7 @@ class Calendar :ObservableObject {
 
     func remove_from_calendar(id :Int) -> Void {
         if let index = entries.firstIndex(where: { $0.plant.id == id }) {
-            entries.remove(at: id)
+            entries.remove(at: index)
         }
         objectWillChange.send()
     }

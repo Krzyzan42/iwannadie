@@ -31,7 +31,7 @@ struct RootView :View {
                     .tag(1)
                 
                 FavoritesView()
-                    .tabItem { Image(systemName: "heart") }
+                    .tabItem { Image(systemName: "tree") }
                     .tag(2)
                 
                 CalendarView()

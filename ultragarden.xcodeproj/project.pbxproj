@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5751C20F2D2956DA0041F21A /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5751C20E2D2956D60041F21A /* Calendar.swift */; };
+		5751C2192D2AFF060041F21A /* todo-done.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5751C2182D2AFF060041F21A /* todo-done.mp3 */; };
 		92668D172D01B97700C765D4 /* ultragardenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92668D162D01B97700C765D4 /* ultragardenApp.swift */; };
 		92668D1B2D01B97F00C765D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92668D1A2D01B97F00C765D4 /* Assets.xcassets */; };
 		92668D1E2D01B97F00C765D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92668D1D2D01B97F00C765D4 /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		5751C20E2D2956D60041F21A /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		5751C2182D2AFF060041F21A /* todo-done.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "todo-done.mp3"; sourceTree = "<group>"; };
 		92668D132D01B97700C765D4 /* ultragarden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ultragarden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92668D162D01B97700C765D4 /* ultragardenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ultragardenApp.swift; sourceTree = "<group>"; };
 		92668D1A2D01B97F00C765D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				92668D1A2D01B97F00C765D4 /* Assets.xcassets */,
 				92668D1C2D01B97F00C765D4 /* Preview Content */,
 				92740C972D01E03D00D31B62 /* Colors.swift */,
+				5751C2182D2AFF060041F21A /* todo-done.mp3 */,
 				92740C9B2D0235DC00D31B62 /* Plant.swift */,
 				92957CEE2D0AFD8A002BEBF5 /* Favorites.swift */,
 			);
@@ -250,6 +253,7 @@
 			files = (
 				92668D1E2D01B97F00C765D4 /* Preview Assets.xcassets in Resources */,
 				92668D1B2D01B97F00C765D4 /* Assets.xcassets in Resources */,
+				5751C2192D2AFF060041F21A /* todo-done.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

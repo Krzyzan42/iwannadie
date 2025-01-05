@@ -7,11 +7,13 @@
 
 import SwiftUI
 import Foundation
+import AVFoundation
 
 struct CalendarView: View {
     let circleSize = 50.0
     @State private var selectedDate :Date = Date()
     @EnvironmentObject var calendar :Calendar
+    @State private var audioPlayer: AVAudioPlayer?
     
     var body :some View {
         VStack {
@@ -43,10 +45,23 @@ struct CalendarView: View {
                 ForEach(calendar.get_all_entries(), id: \.id) { plant_entry in 
                     ForEach(plant_entry.chores, id: \.id) { chore in 
                         if dates_equal(d1: chore.next_due_date, d2: selectedDate) {
-                            TodoItem(plant_entry: plant_entry, chore_entry: chore, date: selectedDate)
+                            TodoItem(plant_entry: plant_entry, chore_entry: chore, date: selectedDate, on_click: play_sound_if_all_done)
                         }
                     }
-                
+                }
+                if !are_all_tasks_done(date: selectedDate) {
+                    Spacer()
+                    VStack {
+                        Image(systemName: "face.smiling")
+                            .font(.system(size: 50))
+                            .frame(maxWidth: 100, maxHeight: 100)
+                        Text("There are no task for this day")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.LightGreen)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    Spacer()
                 }
             }
             .padding(20)
@@ -54,6 +69,36 @@ struct CalendarView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.Green)
+    }
+
+    func play_sound_if_all_done() {
+        if are_all_tasks_done(date: selectedDate) {
+            play_done_sound()
+        }
+    }
+
+    func play_done_sound() {
+        if let soundURL = Bundle.main.url(forResource: "todo-done", withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.play()
+            } catch {
+                print("Error playing sound: \(error.localizedDescription)")
+            }
+        } else {
+            print("Sound file not found.")
+        }
+    }
+
+    func are_all_tasks_done(date: Date) -> Bool {
+        for plant in calendar.get_all_entries() {
+            for entry in plant.chores {
+                if dates_equal(d1: entry.next_due_date, d2: date) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     func get_next_dates(count :Int) -> [Date] {
@@ -77,6 +122,7 @@ struct TodoItem :View {
     var plant_entry :PlantEntry
     @ObservedObject var chore_entry :ChoreEntry
     var date :Date
+    var on_click :() -> Void = {}
     
     var body :some View {
         HStack {
@@ -85,7 +131,10 @@ struct TodoItem :View {
             Spacer()
             Text(" x" + "\(plant_entry.count)")
                 .foregroundColor(Color.gray)
-            Button(action: {chore_entry.mark_done()}) {
+            Button(action: {
+                chore_entry.mark_done()
+                on_click()
+            }) {
                 ZStack {
                     Rectangle()
                         .frame(width: 30, height: 30)
