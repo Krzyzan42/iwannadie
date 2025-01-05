@@ -3,6 +3,7 @@ import SwiftUI
 enum NavigationTarget :Hashable {
     case PlantDetail(id: Int)
     case AddPlant(id: Int)
+    case Youtube(url: String)
 }
 
 struct RootNavigation<Content: View>: View {
@@ -24,6 +25,9 @@ struct RootNavigation<Content: View>: View {
                             .navigationBarHidden(true)
                     case .AddPlant(let id):
                         AddPlantView(plant: get_plant(id: id))
+                            .navigationBarHidden(true)
+                    case .Youtube(let url):
+                        YoutubeView(url: url)
                             .navigationBarHidden(true)
                 }
             }

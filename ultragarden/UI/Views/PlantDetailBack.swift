@@ -35,6 +35,12 @@ struct PlantDetailBack: View {
                             }
                         }
                     
+                        if plant.ytVideo != nil {
+                            NavigationLink(value: NavigationTarget.Youtube(url: plant.ytVideo!)) {
+
+                                Text("Watch video tutorial")
+                            }
+                        }
                         Spacer()
                         Button(action: on_flip) {
                             ZStack {

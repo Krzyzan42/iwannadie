@@ -19,6 +19,7 @@ struct Plant {
     var name :String
     var plural :String
     var imgName :String
+    var ytVideo :String? = nil
     
     var growingConditions :[String]
     var chores :[Chore]
@@ -27,7 +28,7 @@ struct Plant {
 let all_months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 let plants = [
-    Plant(id: 0, name: "Rose", plural: "Roses", imgName: "flower1", growingConditions: [
+    Plant(id: 0, name: "Rose", plural: "Roses", imgName: "flower1", ytVideo: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4", growingConditions: [
         "Full sunlight",
         "Partial sunlight",
         "All soil types"
