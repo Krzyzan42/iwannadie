@@ -26,12 +26,14 @@ struct PlantDetailBack: View {
                                     .overlay(Color.Green)
                                     .padding(0)
                                 ScrollView() {
-                                    ForEach(plant.growingConditions, id: \.self) { item in
-                                        Text(item)
-                                            .padding(.top, 20)
-                                            .padding(.bottom, 10)
+                                    VStack(alignment: .leading) {
+                                        ForEach(plant.growingConditions, id: \.self) { item in
+                                            Text(item)
+                                                .padding(.top, 20)
+                                                .padding(.bottom, 10)
+                                        }
                                     }
-                                } 
+                                }
                             }
                         }
                     
@@ -71,6 +73,7 @@ struct PlantDetailBack: View {
 
 struct PlantDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PlantDetailBack(plant: get_plant(id: 0));
+        PlantDetailBack(plant: get_plant(id: 0))
+            .environmentObject(Calendar());
     }
 }

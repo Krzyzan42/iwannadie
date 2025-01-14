@@ -23,7 +23,7 @@ struct CalendarView: View {
                 HStack {
                     ForEach(self.get_next_dates(count: 5), id: \.self) { date in
                         Button(action: { selectedDate = date }) {
-                           Text("\(Foundation.Calendar.current.component(.day, from: date))")
+                            Text("\(Foundation.Calendar.current.component(.day, from: date))")
                         }
                         .frame(width: circleSize, height: circleSize)
                         .background(dates_equal(d1: date, d2: selectedDate) ? Color.Green : Color.Gray)
@@ -32,7 +32,7 @@ struct CalendarView: View {
                         Spacer()
                     }
                 }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(20)
             .frame(maxWidth: .infinity)
@@ -41,15 +41,19 @@ struct CalendarView: View {
                 Text("Plan for today")
                     .font(.title3)
                     .frame(maxWidth: .infinity, alignment: .leading)
-
-                ForEach(calendar.get_all_entries(), id: \.id) { plant_entry in 
-                    ForEach(plant_entry.chores, id: \.id) { chore in 
-                        if dates_equal(d1: chore.next_due_date, d2: selectedDate) {
-                            TodoItem(plant_entry: plant_entry, chore_entry: chore, date: selectedDate, on_click: play_sound_if_all_done)
+                
+                if !are_all_tasks_done(date: selectedDate) {
+                    ScrollView {
+                        VStack {
+                            ForEach(calendar.get_all_chores(), id: \.id) { chore in
+                                var clickable = dates_equal(d1: selectedDate, d2: Date())
+                                if dates_equal(d1: chore.next_due_date, d2: selectedDate) {
+                                    TodoItem(chore_entry: chore, on_click: play_sound_if_all_done)
+                                }
+                            }
                         }
                     }
-                }
-                if !are_all_tasks_done(date: selectedDate) {
+                } else {
                     Spacer()
                     VStack {
                         Image(systemName: "face.smiling")
@@ -91,14 +95,12 @@ struct CalendarView: View {
     }
 
     func are_all_tasks_done(date: Date) -> Bool {
-        for plant in calendar.get_all_entries() {
-            for entry in plant.chores {
-                if dates_equal(d1: entry.next_due_date, d2: date) {
-                    return true
-                }
+        for entry in calendar.get_all_chores() {
+            if dates_equal(d1: entry.next_due_date, d2: date) {
+                return false
             }
         }
-        return false
+        return true
     }
 
     func get_next_dates(count :Int) -> [Date] {
@@ -119,28 +121,28 @@ struct CalendarView: View {
 }
 
 struct TodoItem :View {
-    var plant_entry :PlantEntry
-    @ObservedObject var chore_entry :ChoreEntry
-    var date :Date
+    var chore_entry :ChoreEntry
     var on_click :() -> Void = {}
+    @EnvironmentObject var calendar :Calendar
     
     var body :some View {
         HStack {
-            Text(chore_entry.name + " " + plant_entry.plant.plural)
-                .font(.title2)
+            Text(chore_entry.name + " " + chore_entry.plant.plant.plural)
             Spacer()
-            Text(" x" + "\(plant_entry.count)")
+            Text(" x" + "\(chore_entry.plant.count)")
                 .foregroundColor(Color.gray)
             Button(action: {
-                chore_entry.mark_done()
-                on_click()
+                if dates_equal(d1: chore_entry.next_due_date, d2: Date()) {
+                    calendar.mark_done(entry: chore_entry)
+                    on_click()
+                }
             }) {
                 ZStack {
                     Rectangle()
                         .frame(width: 30, height: 30)
                         .foregroundColor(Color.LightGray)
 
-                    if(!dates_equal(d1: chore_entry.next_due_date, d2: date)) {
+                    if(false) {
                         Image(systemName: "checkmark")
                             .foregroundColor(Color.DarkGreen)
                     }

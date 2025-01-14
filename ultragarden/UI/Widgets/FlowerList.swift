@@ -46,6 +46,8 @@ struct FlowerTile: View {
                 HStack{
                     Text(plant.name)
                         .font(.title2)
+                        .scaledToFit()
+                        .minimumScaleFactor(0.5)
                         .foregroundColor(Color.black)
                     Spacer()
                     FavoriteButton(plant: plant)

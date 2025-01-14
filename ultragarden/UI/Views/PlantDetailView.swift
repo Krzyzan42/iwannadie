@@ -52,7 +52,7 @@ struct PlantDetailView :View {
 struct PlantDetailView_Previews: PreviewProvider {
     static var previews: some View {
         PlantDetailView(plant: get_plant(id: 0))
-            .environmentObject(Favorites())
+            .environmentObject(Calendar())
     }
 }
 

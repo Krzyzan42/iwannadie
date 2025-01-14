@@ -9,35 +9,46 @@ import Foundation
 
 class Calendar :ObservableObject {
     @Published private var entries: [PlantEntry] = []
-
-    init() {
-        add_to_calendar(id: 0, date_added: Date(), count: 5)
-        add_to_calendar(id: 1, date_added: Date(), count: 1)
-        add_to_calendar(id: 3, date_added: Date(), count: 10)
-    }
+    @Published private var chores: [ChoreEntry] = []
 
     func add_to_calendar(id :Int, date_added :Date, count :Int) -> Void {
         if is_in_calendar(id: id) {
             return
         }
 
-        var plant = get_plant(id: id)
+        let plant = get_plant(id: id)
+        
+        var plant_entry = PlantEntry(plant: plant, count: count)
 
-        var chore_entries: [ChoreEntry] = []
         for chore in plant.chores {
-            chore_entries.append(
-                ChoreEntry(name: chore.name, next_due_date: date_added, active_months: chore.active_months, intervalInDays: chore.intervalInDays)
+            chores.append(
+                ChoreEntry(
+                    id: UUID(),
+                    name: chore.name,
+                    plant: plant_entry,
+                    active_months: chore.active_months,
+                    intervalInDays: chore.intervalInDays,
+                    next_due_date: date_added
+                )
             )
         }
-
-        entries.append(PlantEntry(plant: plant, count: count, chores: chore_entries))
+        entries.append(plant_entry)
     
         objectWillChange.send()
     }
 
     func remove_from_calendar(id :Int) -> Void {
         if let index = entries.firstIndex(where: { $0.plant.id == id }) {
-            entries.remove(at: index)
+            var plant_entry = entries.remove(at: index)
+            var chores_to_remove :[ChoreEntry] = []
+            for chore in chores {
+                if chore.plant.plant.id == plant_entry.plant.id {
+                    chores_to_remove.append(chore)
+                }
+            }
+            chores.removeAll(where: { chore in
+                chores_to_remove.contains( where: { c in c.id == chore.id } )
+            })
         }
         objectWillChange.send()
     }
@@ -49,60 +60,49 @@ class Calendar :ObservableObject {
             return false
         }
     }
-
-    func get_all_entries() -> [PlantEntry] {
-        return entries
-    }
-}
-
-class PlantEntry {
-    var id = UUID() // For ForEach
-    var plant :Plant
-    var count :Int
-    var chores :[ChoreEntry]
-
-    init(plant :Plant, count :Int, chores :[ChoreEntry]) {
-        self.plant = plant
-        self.count = count
-        self.chores = chores
-    }
-}
-
-class ChoreEntry :ObservableObject {
-    var id = UUID() // For ForEach
-    var name :String
-    var active_months :[Int]
-    var intervalInDays :Int
-    @Published var next_due_date :Date
-
-    init(name :String, next_due_date :Date, active_months: [Int], intervalInDays :Int) {
-        self.name = name
-        self.next_due_date = next_due_date
-        self.active_months = active_months
-        self.intervalInDays = intervalInDays
-        if active_months == [] {
-            self.next_due_date = get_hight_date()
-        }
-    }
     
-    func mark_done() -> Void {
-        if active_months == [] {
+    func mark_done(entry :ChoreEntry) {
+        if entry.active_months == [] {
             return
         }
 
         let calendar = Foundation.Calendar.current
-        next_due_date = calendar.date(byAdding: .day, value: intervalInDays, to: next_due_date)!
+        var next_due_date = calendar.date(byAdding: .day, value: entry.intervalInDays, to: entry.next_due_date)!
+        while !entry.active_months.contains(calendar.component(.month, from: next_due_date)) {
+            next_due_date = calendar.date(byAdding: .day, value: entry.intervalInDays, to: next_due_date)!
+        }
+        
+        var next_chore = ChoreEntry(name: entry.name, plant: entry.plant, active_months: entry.active_months, intervalInDays: entry.intervalInDays, next_due_date: next_due_date)
+        chores.append(next_chore)
+
+        if let index = chores.firstIndex(where: { $0.id == entry.id }) {
+            chores.remove(at: index)
+        }
+        objectWillChange.send()
+    }
+
+    func get_all_entries() -> [PlantEntry] {
+        return entries
+    }
+    
+    func get_all_chores() -> [ChoreEntry] {
+        return chores
+    }
+    
+    func get_next_due_date(date :Date, intervalInDays :Int, active_months :[Int]) -> Date {
+        if active_months == [] {
+            return get_hight_date()
+        }
+
+        let calendar = Foundation.Calendar.current
+        var next_due_date = calendar.date(byAdding: .day, value: intervalInDays, to: date)!
         while !active_months.contains(calendar.component(.month, from: next_due_date)) {
             next_due_date = calendar.date(byAdding: .day, value: intervalInDays, to: next_due_date)!
         }
         
-        objectWillChange.send()
+        return next_due_date;
     }
-
-    func get_next_due_date() -> Date {
-        return Date()
-    }
-
+    
     func get_hight_date() -> Date {
         var components = DateComponents()
         components.year = 3000
@@ -111,6 +111,21 @@ class ChoreEntry :ObservableObject {
 
         return Foundation.Calendar.current.date(from: components) ?? Date()
     }
+}
+
+struct PlantEntry {
+    var id = UUID() // For ForEach
+    var plant :Plant
+    var count :Int
+}
+
+struct ChoreEntry {
+    var id = UUID() // For ForEach
+    var name :String
+    var plant :PlantEntry
+    var active_months :[Int]
+    var intervalInDays :Int
+    var next_due_date :Date
 }
 
 func dates_equal(d1 :Date, d2: Date) -> Bool {

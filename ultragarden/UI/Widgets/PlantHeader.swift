@@ -28,7 +28,10 @@ struct PlantHeader :View {
                 }
                 Text(plant.name)
                     .font(.largeTitle)
-                    .padding(30)
+                    .padding(.vertical, 30)
+                    .padding(.horizontal, 10)
+                    .scaledToFit()
+                    .minimumScaleFactor(0.8)
                     .frame(maxWidth: .infinity)
                     .background(Color.Green)
                     .clipShape(RoundedCorner(radius: 20, corners: [.topRight, .bottomRight]))
@@ -41,7 +44,7 @@ struct PlantHeader :View {
 
 struct PlantHeader_Previews: PreviewProvider {
     static var previews: some View {
-        PlantHeader(plant: get_plant(id: 0))
+        PlantHeader(plant: get_plant(id: 8))
             .environmentObject(Calendar())
     }
 }

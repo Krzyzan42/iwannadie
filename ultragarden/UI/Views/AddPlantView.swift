@@ -26,28 +26,7 @@ struct AddPlantView: View {
                     .overlay(Color.Green)
                     .padding(.bottom, 30)
 
-                HStack(alignment: VerticalAlignment.top) {
-                    Image(plant.imgName)
-                        .resizable(resizingMode: .stretch)
-                        .frame(width: 120.0, height: 200.0)
-                        .background(Color.DarkGreen)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "heart.fill")
-                                .resizable(resizingMode: .stretch)
-                                .frame(width: 40.0, height: 40.0)
-                                .foregroundColor(Color.DarkGreen)
-                        }
-                        Text(plant.name)
-                            .font(.largeTitle)
-                            .padding(30)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.Green)
-                            .clipShape(RoundedCorner(radius: 20, corners: [.topRight, .bottomRight]))
-                    }
-                }
+                PlantHeader(plant: plant)
                 VStack(alignment: .leading, spacing: 5) {
 
                     DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
@@ -114,6 +93,6 @@ struct AddPlantView: View {
 struct AddPlantView_Previews: PreviewProvider {
     static var previews: some View {
         AddPlantView(plant: get_plant(id: 0))
-            .environmentObject(Favorites())
+            .environmentObject(Calendar())
     }
 }

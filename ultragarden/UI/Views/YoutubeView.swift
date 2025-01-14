@@ -24,6 +24,7 @@ struct WebkitView: UIViewRepresentable {
 
 struct YoutubeView: View {
     var url: String
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack(spacing: 0) {
